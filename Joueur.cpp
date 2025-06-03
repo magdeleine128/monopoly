@@ -89,3 +89,6 @@ void Joueur::stand_initialisation(int nbjoueur) {
 int Joueur::getNbStands() {
     return nbstands;
 }
+void Joueur::changerPosition(int case1) {
+    position = case1;
+}
