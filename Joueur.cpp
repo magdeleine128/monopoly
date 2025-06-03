@@ -52,7 +52,7 @@ int Joueur::getPosition() {
 }
 
 void Joueur::avancer(int nbCases) {
-    position = (position + nbCases) % 24;
+    position = (position + nbCases) % 31;
 }
 
 std::string Joueur::getCouleur() const {
