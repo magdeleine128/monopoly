@@ -4,9 +4,10 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include<string>
 
-Joueur::Joueur(Couleur c) : couleur(c), billets(10), position(0), nbstands(5) {
-    std::srand(static_cast<unsigned int>(time(0)));
+
+Joueur::Joueur(std::string clr) : couleur(clr), billets(10), position(0), nbstands(10) {
 }
 
 int Joueur::lancerDe() {
@@ -54,12 +55,11 @@ void Joueur::avancer(int nbCases) {
     position = (position + nbCases) % 24;
 }
 
-Joueur::Couleur Joueur::getCouleur() const {
+std::string Joueur::getCouleur() const {
     return couleur;
 }
-
-void Joueur::retirStand(int index) {
-    auto it = std::find(standPlayer.begin(), standPlayer.end(), index);
+void Joueur::retirStand(int case1) {
+    auto it = std::find(standPlayer.begin(), standPlayer.end(), case1);
     if (it != standPlayer.end()) {
         standPlayer.erase(it);
         nbstands++;
@@ -69,13 +69,20 @@ void Joueur::retirStand(int index) {
 bool Joueur::echangerStand(int case1) {
     std::sort(standPlayer.begin(), standPlayer.end());
     auto it = std::find(standPlayer.begin(), standPlayer.end(), case1);
+    if (it == standPlayer.end()) return true; // Si le joueur ne possède pas déjà la case, autoriser
+
     int index = std::distance(standPlayer.begin(), it);
 
-    if (standPlayer[index + 1] == (case1 + 1)) return false;
-    if (index > 0 && standPlayer[index - 1] == (case1 - 1)) return false;
+    // Vérifier les limites
+    if (index + 1 < (int)standPlayer.size() && standPlayer[index + 1] == case1 + 1)
+        return false;
+
+    if (index - 1 >= 0 && standPlayer[index - 1] == case1 - 1)
+        return false;
 
     return true;
 }
+
 
 void Joueur::stand_initialisation(int nbjoueur) {
     if (nbjoueur == 2) {
@@ -84,7 +91,7 @@ void Joueur::stand_initialisation(int nbjoueur) {
     else {
         nbstands = 10;
     }
-} 
+}
 
 int Joueur::getNbStands() {
     return nbstands;
