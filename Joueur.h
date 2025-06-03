@@ -8,7 +8,7 @@ public:
     int lancerDe();
     void payerStand(int montant);
     void acheterStand(int index, int prix);
-    bool echangerStand(int case1);//cherche s il possede n et n+1 ou n et n-1 aprés trier le vect
+    bool echangerStand(int case1);//cherche s il possede n et n+1 ou n et n-1 aprÃ©s trier le vect
     int getBillets() const;
     void payerJoueur(int montant);
     void ajouterArgent(int montant);
@@ -17,7 +17,8 @@ public:
     Couleur getCouleur() const;
     void stand_initialisation(int nbjoueur);
     void retirStand(int index);
-    int getNbStands(); // Déclaration ajoutée
+    int getNbStands(); // DÃ©claration ajoutÃ©e
+    void changerPosition(int case1);
 private:
     Couleur couleur;
     int billets;
