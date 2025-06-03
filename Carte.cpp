@@ -12,8 +12,8 @@ Carte::Carte() {
     cartes.push_back("Stand gratuit rose");
     cartes.push_back("Stand gratuit bleu clair");
     cartes.push_back("Stand gratuit bleu clair");
-    cartes.push_back("Stand gratuit bleu foncé");
-    cartes.push_back("Stand gratuit bleu foncé");
+    cartes.push_back("Stand gratuit bleu foncÃ©");
+    cartes.push_back("Stand gratuit bleu foncÃ©");
     cartes.push_back("Stand gratuit jaune");
     cartes.push_back("Stand gratuit jaune");
     cartes.push_back("Stand gratuit vert");
@@ -22,32 +22,32 @@ Carte::Carte() {
     // 1 stand gratuit violet
     cartes.push_back("Stand gratuit violet");
 
-    // Autres cartes spéciales
+    // Autres cartes spÃ©ciales
     cartes.push_back("Va sur la case Toboggan aquatique");
     cartes.push_back("Va sur la case Grand Huit");
-    cartes.push_back("Paie 3 euros pour prendre le bus qui te conduit au café");
-    cartes.push_back("Va sur la case départ et reçois 2 euros");
+    cartes.push_back("Paie 3 euros pour prendre le bus qui te conduit au cafÃ©");
+    cartes.push_back("Va sur la case dÃ©part et reÃ§ois 2 euros");
     cartes.push_back("Va sur la case Ballet des dauphins et paie 2 euros");
     cartes.push_back("Va sur la case Feu d'artifice et paie 2 euros");
 
-    cartes.push_back("Prends le petit train bleu et relance le dé");
-    cartes.push_back("Prends le petit train rouge et relance le dé");
-    cartes.push_back("Prends le petit train jaune et relance le dé");
-    cartes.push_back("Prends le petit train vert et relance le dé");
+    cartes.push_back("Prends le petit train bleu et relance le dÃ©");
+    cartes.push_back("Prends le petit train rouge et relance le dÃ©");
+    cartes.push_back("Prends le petit train jaune et relance le dÃ©");
+    cartes.push_back("Prends le petit train vert et relance le dÃ©");
 
-    melangerCartes(cartes); // Shuffler à l'initialisation
+    melangerCartes(cartes); // Shuffler Ã  l'initialisation
 }
 std::string Carte::piocher() {
-   
+
     return cartes[0];
 }
 
 void Carte::update() {
-     
-        std::string premier = cartes.front();//STOKER PREMIERE CARTE
-        cartes.erase(cartes.begin());//EFFACER PREMIERE CARTE =>nb des cartes n-1
-        cartes.push_back(premier);
-    
+
+    std::string premier = cartes.front();//STOKER PREMIERE CARTE
+    cartes.erase(cartes.begin());//EFFACER PREMIERE CARTE =>nb des cartes n-1
+    cartes.push_back(premier);
+
 }
 
 void Carte::melangerCartes(std::vector<std::string>& cartes) {
