@@ -90,50 +90,52 @@ void Plateau::actionCase(int index, Joueur& joueur, Carte& cartesChance) {
         if (carte.find("Stand gratuit") != std::string::npos) {
             std::cout << "Vous avez obtenu un " << carte << " !" << std::endl;
         }
-        else if (carte == "Va sur la case Toboggan aquatique") {
-            joueur.avancer(3);
+                else if (carteChance == "Va sur la case Toboggan aquatique") {
+           
+            joueur.changerPosition(14); // Avancer à la case 14
         }
-        else if (carte == "Va sur la case Grand Huit") {
-            joueur.avancer(5);
+        else if (carteChance == "Va sur la case Grand Huit") {
+            joueur.changerPosition(30); // Avancer à la case 30
         }
-        else if (carte == "Paie 3 euros pour prendre le bus qui te conduit au café") {
-            joueur.payerStand(3);
+        else if (carteChance == "Paie 3 euros pour prendre le bus qui te conduit au café") {
+            joueur.payerStand(3); // Payer 3 euros
+            joueur.changerPosition(10);
         }
-        else if (carte == "Va sur la case départ et reçois 2 euros") {
-            joueur.avancer(0);
-            joueur.ajouterArgent(2);
+        else if (carteChance == "Va sur la case départ et reçois 2 euros") {
+            joueur.changerPosition(0); // Retourner à la case départ
+            joueur.ajouterArgent(2); // Recevoir 2 euros
         }
-        else if (carte == "Va sur la case Ballet des dauphins et paie 2 euros") {
-            joueur.avancer(10);
-            joueur.payerStand(2);
+        else if (carteChance == "Va sur la case Ballet des dauphins et paie 2 euros") {
+            joueur.changerPosition(24); // Avancer à la case Ballet des dauphins (index 10 par exemple)
+            joueur.payerStand(2); // Payer 2 euros
         }
-        else if (carte == "Va sur la case Feu d'artifice et paie 2 euros") {
-            joueur.avancer(12);
-            joueur.payerStand(2);
+        else if (carteChance == "Va sur la case Feu d'artifice et paie 2 euros") {
+            joueur.changerPosition(8); // Avancer à la case Feu d'artifice (index 12 par exemple)
+            joueur.payerStand(2); // Payer 2 euros
         }
-        else if (carte.find("relance le dé") != std::string::npos) {
-            std::cout << "Vous prenez le petit train et relancez le dé !" << std::endl;
-            int de = joueur.lancerDe();
-            joueur.avancer(de);
+        else if (carteChance == "Prends le petit train bleu et relance le dé") {
+            std::cout << "Vous prenez le petit train bleu et relancez le dé !" << std::endl;
+            joueur.changerPosition(21);   // Avancer au petit train
+            int de = joueur.lancerDe(); // Relancer le dé
+            joueur.changerPosition(de); // Avancer du nombre de cases obtenu
         }
-    }
-    else if (c.type == "propriete") {
-        if (c.proprietaire == "banque") {
-            std::cout << "Cette case est disponible à l'achat pour " << c.prix << " euros." << std::endl;
-            if (joueur.getBillets() >= c.prix && joueur.echangerStand(index)) {
-                joueur.acheterStand(index, c.prix);
-                c.proprietaire = joueur.getCouleur();
-            }
-            else {
-                std::cout << "Achat impossible (fonds insuffisants ou propriété adjacente)." << std::endl;
-            }
+        else if (carteChance == "Prends le petit train rouge et relance le dé") {
+            std::cout << "Vous prenez le petit train rouge et relancez le dé !" << std::endl;
+            joueur.changerPosition(29);
+            int de = joueur.lancerDe(); // Relancer le dé
+            joueur.changerPosition(de); // Avancer du nombre de cases obtenu
         }
-        else if (c.proprietaire != joueur.getCouleur()) {
-            std::cout << "Cette case appartient à " << c.proprietaire << ". Vous devez payer " << c.loyer << " euros de loyer." << std::endl;
-            joueur.payerStand(c.loyer);
+        else if (carteChance == "Prends le petit train jaune et relance le dé") {
+            std::cout << "Vous prenez le petit train jaune et relancez le dé !" << std::endl;
+            joueur.changerPosition(5);
+            int de = joueur.lancerDe(); // Relancer le dé
+            joueur.changerPosition(de); // Avancer du nombre de cases obtenu
         }
-        else {
-            std::cout << "C'est votre propre propriété." << std::endl;
+        else if (carteChance == "Prends le petit train vert et relance le dé") {
+            std::cout << "Vous prenez le petit train vert et relancez le dé !" << std::endl;
+            joueur.changerPosition(13);
+            int de = joueur.lancerDe(); // Relancer le dé
+            joueur.changerPosition(de); // Avancer du nombre de cases obtenu
         }
     }
 }
