@@ -1,6 +1,7 @@
 #include "Carte.h"
 #include <algorithm> // pour std::shuffle
 #include <random>    // pour std::random_device et std::mt19937
+#include <string>
 
 Carte::Carte() {
     // 2 cartes pour chaque stand gratuit
