@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Joueur.h"
 #include "Carte.h"
+#include<vector>
 
 struct Case {
     std::string type = "";
@@ -17,14 +18,17 @@ struct Case {
 class Plateau {
 public:
     Plateau();
-    int getLoyer(int index);
-    int getPrix(int index);
-    std::string getOwner(int index);
-    std::string getType(int index);
-    std::string getcolor(int index);
+    
+   
+    
     void afficherPlateau() const;
     void actionCase(int index, Joueur& joueur, Carte& cartesChance);
+    void changer_proprio(int index, Joueur joueur);
+    void ajouterJoueur( Joueur& joueur);
+    Joueur& trouverParCouleur(const std::string& couleur, std::vector<Joueur>& joueurs);
 private:
     std::map<int, Case> plateau;
     Carte cartesChance;
+    std::vector< Joueur> MesJoueurs ;
+    int fortune=0;
 };
