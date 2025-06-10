@@ -18,7 +18,8 @@ struct Case {
 class Plateau {
 public:
     Plateau();
-    
+    void definePlayers(int n);
+    Joueur& getJoueur(int index);
    
     
     void afficherPlateau() const;
@@ -31,4 +32,5 @@ private:
     Carte cartesChance;
     std::vector< Joueur> MesJoueurs ;
     int fortune=0;
+   
 };
