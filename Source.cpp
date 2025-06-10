@@ -7,22 +7,23 @@
 
 int main() {
     std::cout << "Bienvenue dans Monopoly Junior !" << std::endl;
+    std::cout << "Vous etes combien de joueurs? ";
+    int n;
+    std::cin >> n;
+    std::cin.ignore();  // Pour vider le buffer
 
-    Joueur joueur1("ROUGE");
-    Joueur joueur2("BLEU");
     Plateau plateau;
     Carte cartesChance;
 
-    joueur1.stand_initialisation(2); // 2 joueurs
-    joueur2.stand_initialisation(2);
-    plateau.ajouterJoueur(joueur1);
-    plateau.ajouterJoueur(joueur2);
+    // Création des joueurs
+    plateau.definePlayers(n);
+
     bool partieTerminee = false;
     int tour = 0;
-    // Affichage plateau
+
     plateau.afficherPlateau();
     while (!partieTerminee) {
-        Joueur& joueurActuel = (tour % 2 == 0) ? joueur1 : joueur2;
+        Joueur& joueurActuel = plateau.getJoueur(tour % n);
 
         // Affichage info joueur
         std::cout << "\nTour du joueur " << joueurActuel.getCouleur()
