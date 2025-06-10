@@ -46,7 +46,24 @@ Plateau::Plateau() {
 void Plateau::ajouterJoueur(Joueur& joueur) {
     MesJoueurs.push_back(joueur);
 }
+void Plateau::definePlayers(int n) {
+    for (int i = 1; i <= n; i++) {
+        std::string couleur;
+        std::cout << "Couleur du joueur n°" << i << ": ";
+        std::cin >> couleur;
 
+        Joueur nouveauJoueur(couleur);
+        nouveauJoueur.stand_initialisation(n);
+        ajouterJoueur(nouveauJoueur);
+    }
+
+}
+Joueur& Plateau::getJoueur(int index) {
+    if (index < 0 || index >= MesJoueurs.size()) {
+        throw std::out_of_range("Index de joueur invalide");
+    }
+    return MesJoueurs[index];
+}
 void Plateau::afficherPlateau() const {
     for (const auto& entry : plateau) {
         const Case& c = entry.second;
