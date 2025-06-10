@@ -15,7 +15,7 @@ public:
     void acheterStand(int index , int prix);
     bool echangerStand(int case1);//cherche s il possede n et n+1 ou n et n-1 aprés trier le vect
     int getBillets() const;
-    void payerJoueur(int montant, Joueur joueur1);
+    void payerJoueur(int montant, Joueur& joueur1);
     void ajouterArgent(int montant);
     int getPosition() ;
     void avancer(int nbCases);
