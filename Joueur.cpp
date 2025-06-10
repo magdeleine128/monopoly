@@ -37,7 +37,7 @@ int Joueur::getBillets() const {
     return billets;
 }
 
-void Joueur::payerJoueur(int montant,Joueur joueur1) {
+void Joueur::payerJoueur(int montant, Joueur& joueur1) {
     billets -= montant;
     joueur1.ajouterArgent(montant);
 }
