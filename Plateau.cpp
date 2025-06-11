@@ -7,18 +7,18 @@
 #include <stdexcept> // Pour std::runtime_error
 
 Plateau::Plateau() {
-    plateau = {
-        {0,   {"depart",      "Départ"}},
+        plateau = {
+        {0,   {"depart",      "Depart"}},
         {1,   {"chance",      "Chance"}},
         {2,   {"propriete",   "Jeu de ballons","violet", 1, 1}},
-        {3,   {"propriete",   "Barbe à papa","violet", 1, 1}},
+        {3,   {"propriete",   "Barbe a papa","violet", 1, 1}},
         {4,   {"chance",      "Chance"}},
         {5,   {"transport",   "Transport"}},
         {6,   {"propriete",   "Theatre de marionnettes", "bleu clair", 2, 2}},
         {7,   {"propriete",   "Spectacle de magie", "bleu clair",2, 2}},
         {8,   {"amande",      "Banque"}},
         {9,   {"chance",      "Chance"}},
-        {10,  {"prison",      "café"}},
+        {10,  {"prison",      "cafe"}},
         {11,  {"propriete",   "Manege", "rose", 2, 2}},
         {12,  {"propriete",   "Pedalos","rose", 2, 2}},
         {13,  {"transport",   "Transport"}},
@@ -26,15 +26,15 @@ Plateau::Plateau() {
         {15,  {"propriete",   "mini Golf","orange", 3, 3}},
         {16,  {"fortune",     "Fortune"}},
         {17,  {"chance",      "Chance"}},
-        {18,  {"propriete",   "Jeux vidéo","rouge",  3, 3}},
-        {19,  {"propriete",   "Maison hantée","rouge",3, 3}},
+        {18,  {"propriete",   "Jeux video","rouge",  3, 3}},
+        {19,  {"propriete",   "Maison hantee","rouge",3, 3}},
         {20,  {"chance",      "Chance"}},
         {21,  {"transport",   "Transport"}},
-        {22,  {"propriete",   "Promenade en hélicoptère","jaune", 4, 4}},
-        {23,  {"propriete",   "Promenade à poney","jaune", 4, 4}},
+        {22,  {"propriete",   "Promenade en helicoptere","jaune", 4, 4}},
+        {23,  {"propriete",   "Promenade a poney","jaune", 4, 4}},
         {24,  {"amende",      "Banque"}},
         {25,  {"chance",      "Chance"}},
-        {26,  {"va_en_prison","Va au café "}},
+        {26,  {"va_en_prison","Va au cafe "}},
         {27,  {"propriete",   "Autos tamponneuses", "vert", 4, 4}},
         {28,  {"propriete",   "Grande roue",  "vert", 4, 4}},
         {29,  {"transport",   "Transport"}},
@@ -94,7 +94,7 @@ Joueur& Plateau::trouverParCouleur(const std::string& couleur, std::vector<Joueu
             return joueur;
         }
     }
-    throw std::runtime_error("Joueur non trouvé pour la couleur: " + couleur);
+    throw std::runtime_error("Joueur non trouve pour la couleur: " + couleur);
 }
 
 void Plateau::actionCase(int index, Joueur& joueur, Carte& cartesChance)
@@ -180,12 +180,12 @@ void Plateau::actionCase(int index, Joueur& joueur, Carte& cartesChance)
         else if (carte == "Va sur la case Grand Huit") {
             joueur.changerPosition(30);
         }
-        else if (carte == "Paie 3 euros pour prendre le bus qui te conduit au café") {
+        else if (carte == "Paie 3 euros pour prendre le bus qui te conduit au cafe") {
             joueur.payerStand(3);
             joueur.changerPosition(10);
             fortune = +3;
         }
-        else if (carte == "Va sur la case départ et reçois 2 euros") {
+        else if (carte == "Va sur la case depart et reçois 2 euros") {
             joueur.changerPosition(0);
             joueur.ajouterArgent(2);
         }
@@ -197,25 +197,25 @@ void Plateau::actionCase(int index, Joueur& joueur, Carte& cartesChance)
             joueur.changerPosition(8);
             joueur.payerStand(2);
         }
-        else if (carte == "Prends le petit train bleu et relance le dé") {
+        else if (carte == "Prends le petit train bleu et relance le de") {
             joueur.changerPosition(21);
             int de = joueur.lancerDe();
             joueur.avancer(de);
             actionCase(joueur.getPosition(), joueur, cartesChance);
         }
-        else if (carte == "Prends le petit train rouge et relance le dé") {
+        else if (carte == "Prends le petit train rouge et relance le de") {
             joueur.changerPosition(29);
             int de = joueur.lancerDe();
             joueur.avancer(de);
             actionCase(joueur.getPosition(), joueur, cartesChance);
         }
-        else if (carte == "Prends le petit train jaune et relance le dé") {
+        else if (carte == "Prends le petit train jaune et relance le de") {
             joueur.changerPosition(5);
             int de = joueur.lancerDe();
             joueur.avancer(de);
             actionCase(joueur.getPosition(), joueur, cartesChance);
         }
-        else if (carte == "Prends le petit train vert et relance le dé") {
+        else if (carte == "Prends le petit train vert et relance le de") {
             joueur.changerPosition(13);
             int de = joueur.lancerDe();
             joueur.avancer(de);
@@ -231,7 +231,7 @@ void Plateau::actionCase(int index, Joueur& joueur, Carte& cartesChance)
     else if (c.nom == "café") {
 
     }
-    else if (c.nom == "Va au café") {
+    else if (c.nom == "Va au cafe") {
 
         joueur.payerStand(3);
         joueur.changerPosition(10);
