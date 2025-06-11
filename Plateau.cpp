@@ -49,6 +49,7 @@ void Plateau::ajouterJoueur(Joueur& joueur) {
 void Plateau::definePlayers(int n) {
     for (int i = 1; i <= n; i++) {
         std::string couleur;
+        std::cout <<"Choisir parmis les couleurs: 
         std::cout << "Couleur du joueur n°" << i << ": ";
         std::cin >> couleur;
 
