@@ -6,7 +6,8 @@
 #include "Color.h"
 
 int main() {
-    std::cout << Colors::colorize("Bienvenue dans Monopoly Junior !", "yellow") << std::endl;
+    std::srand(static_cast<unsigned int>(std::time(nullptr))); // Initialisation du générateur aléatoire
+    std::cout << Colors::colorize("Bienvenue dans Monopoly Junior !", "jaune") << std::endl;
     std::cout << "Vous etes combien de joueurs? ";
     int n;
     std::cin >> n;
@@ -23,6 +24,8 @@ int main() {
 
     plateau.afficherPlateau();
     while (!partieTerminee) {
+       // if (tour % n == 0) {
+            //plateau.afficherPlateau(); }
         Joueur& joueurActuel = plateau.getJoueur(tour % n);
         std::string couleurJoueur = joueurActuel.getCouleur();
 
