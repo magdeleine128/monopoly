@@ -121,13 +121,27 @@ void Plateau::actionCase(int index, Joueur& joueur, Carte& cartesChance)
         else if (c.proprietaire != joueur.getCouleur()) {
             try {
                 Joueur& proprietaire = trouverParCouleur(c.proprietaire, MesJoueurs);
-                int montantAPayer = proprietaire.echangerStand(index) ? c.loyer : 2 * c.loyer;
+                bool doubleLoyer = !proprietaire.echangerStand(index);
+                int montantAPayer = doubleLoyer ? 2 * c.loyer : c.loyer;
+
+                // Nouveaux messages d'information
+                std::cout << "Ce stand appartient au joueur " << c.proprietaire << "!" << std::endl;
+                if (doubleLoyer) {
+                    std::cout << "Le propriétaire possède les 2 stands de cette couleur, vous payez double loyer!" << std::endl;
+                }
+                std::cout << "Vous payez " << montantAPayer << "€ au joueur " << c.proprietaire << std::endl;
+
                 joueur.payerStand(montantAPayer);
                 proprietaire.ajouterArgent(montantAPayer);
+
+                std::cout << "Votre argent restant: " << joueur.getBillets() << "€" << std::endl;
             }
             catch (const std::exception& e) {
                 std::cerr << "Erreur: " << e.what() << std::endl;
             }
+        }
+        else {
+            std::cout << "Ce stand vous appartient déjà!" << std::endl;
         }
     }
     else if (c.type == "chance") {
@@ -153,7 +167,7 @@ void Plateau::actionCase(int index, Joueur& joueur, Carte& cartesChance)
 
                 if (plateau[case1].proprietaire == plateau[case2].proprietaire &&
                     plateau[case1].proprietaire != "banque") {
-                    std::cout << "Les 2 stands sont déjà possédés par le même joueur\n";
+                    std::cout << "Les 2 stands sont déjà possédés par le même joueur" << std::endl;
                 }
                 else {
                     int choix = (rand() % 2) ? case1 : case2;
@@ -162,6 +176,7 @@ void Plateau::actionCase(int index, Joueur& joueur, Carte& cartesChance)
                         try {
                             Joueur ancienProprio = trouverParCouleur(plateau[choix].proprietaire, MesJoueurs);
                             ancienProprio.retirStand(choix);
+                            std::cout << "Vous prenez le stand " << plateau[choix].nom << " au joueur " << plateau[choix].proprietaire << std::endl;
                         }
                         catch (...) {
                             // Ignorer si propriétaire non trouvé
@@ -170,85 +185,98 @@ void Plateau::actionCase(int index, Joueur& joueur, Carte& cartesChance)
 
                     plateau[choix].proprietaire = joueur.getCouleur();
                     joueur.acheterStand(choix, 0);
-                    std::cout << "Vous obtenez le stand " << plateau[choix].nom << " gratuitement!\n";
+                    std::cout << "Vous obtenez le stand " << plateau[choix].nom << " gratuitement!" << std::endl;
                 }
             }
         }
         else if (carte == "Va sur la case Toboggan aquatique") {
+            std::cout << "Vous allez directement au Toboggan aquatique!" << std::endl;
             joueur.changerPosition(14);
         }
         else if (carte == "Va sur la case Grand Huit") {
+            std::cout << "Vous allez directement au Grand Huit!" << std::endl;
             joueur.changerPosition(30);
         }
         else if (carte == "Paie 3 euros pour prendre le bus qui te conduit au café") {
+            std::cout << "Vous payez 3€ pour prendre le bus vers le café" << std::endl;
             joueur.payerStand(3);
             joueur.changerPosition(10);
-            fortune = +3;
+            fortune += 3;
         }
         else if (carte == "Va sur la case départ et reçois 2 euros") {
+            std::cout << "Vous retournez à la case départ et recevez 2€!" << std::endl;
             joueur.changerPosition(0);
             joueur.ajouterArgent(2);
         }
         else if (carte == "Va sur la case Ballet des dauphins et paie 2 euros") {
+            std::cout << "Vous allez au Ballet des dauphins et payez 2€" << std::endl;
             joueur.changerPosition(24);
             joueur.payerStand(2);
         }
         else if (carte == "Va sur la case Feu d'artifice et paie 2 euros") {
+            std::cout << "Vous allez au Feu d'artifice et payez 2€" << std::endl;
             joueur.changerPosition(8);
             joueur.payerStand(2);
         }
-        else if (carte == "Prends le petit train bleu et relance le dé") {
-            joueur.changerPosition(21);
+        else if (carte.find("Prends le petit train") != std::string::npos) {
+            std::cout << "Vous prenez un train et relancez le dé!" << std::endl;
+            int nouvellePosition = 0;
+            if (carte.find("bleu") != std::string::npos) nouvellePosition = 21;
+            else if (carte.find("rouge") != std::string::npos) nouvellePosition = 29;
+            else if (carte.find("jaune") != std::string::npos) nouvellePosition = 5;
+            else if (carte.find("vert") != std::string::npos) nouvellePosition = 13;
+
+            joueur.changerPosition(nouvellePosition);
+            std::cout << "Vous êtes maintenant sur la case " << joueur.getPosition() << " (gare)" << std::endl;
+
+            std::cout << "Appuyez sur Entree pour lancer le de..." << std::endl;
+            std::cin.ignore();
+            std::cin.get();
+
             int de = joueur.lancerDe();
+            std::cout << "Nouveau lancer de dé: " << de << std::endl;
             joueur.avancer(de);
-            actionCase(joueur.getPosition(), joueur, cartesChance);
-        }
-        else if (carte == "Prends le petit train rouge et relance le dé") {
-            joueur.changerPosition(29);
-            int de = joueur.lancerDe();
-            joueur.avancer(de);
-            actionCase(joueur.getPosition(), joueur, cartesChance);
-        }
-        else if (carte == "Prends le petit train jaune et relance le dé") {
-            joueur.changerPosition(5);
-            int de = joueur.lancerDe();
-            joueur.avancer(de);
-            actionCase(joueur.getPosition(), joueur, cartesChance);
-        }
-        else if (carte == "Prends le petit train vert et relance le dé") {
-            joueur.changerPosition(13);
-            int de = joueur.lancerDe();
-            joueur.avancer(de);
+            std::cout << "Vous êtes maintenant sur la case " << joueur.getPosition() << std::endl;
             actionCase(joueur.getPosition(), joueur, cartesChance);
         }
     }
-    else if (c.type == "transport") {// le cas ou on se trouve dans une case  de transport 
-        int de = joueur.lancerDe();
-        joueur.avancer(de);
-        actionCase(joueur.getPosition(), joueur, cartesChance);
+    else if (c.type == "transport") {
+        std::cout << "Vous prenez un transport et relancez le dé!" << std::endl;
+        std::cout << "Appuyez sur Entree pour lancer le de..." << std::endl;
+        std::cin.ignore();
+        std::cin.get();
 
+        int de = joueur.lancerDe();
+        std::cout << "Nouveau lancer de dé: " << de << std::endl;
+        joueur.avancer(de);
+        std::cout << "Vous êtes maintenant sur la case " << joueur.getPosition() << std::endl;
+        actionCase(joueur.getPosition(), joueur, cartesChance);
     }
     else if (c.nom == "café") {
-
+        std::cout << "Vous êtes au café. Rien ne se passe." << std::endl;
     }
     else if (c.nom == "Va au café") {
-
+        std::cout << "Vous devez aller au café et payer 3€!" << std::endl;
         joueur.payerStand(3);
         joueur.changerPosition(10);
-        fortune = +3;
+        fortune += 3;
     }
     else if (c.nom == "Fortune") {
-
-        joueur.ajouterArgent(fortune);
-        fortune = 0;
+        if (fortune > 0) {
+            std::cout << "Vous recevez " << fortune << "€ de la fortune!" << std::endl;
+            joueur.ajouterArgent(fortune);
+            fortune = 0;
+        }
+        else {
+            std::cout << "La fortune est vide pour le moment." << std::endl;
+        }
     }
     else if (c.type == "amende") {
-
+        std::cout << "Vous payez une amende de 2€ à la banque!" << std::endl;
         joueur.payerStand(2);
-
-    }
-
-
-
+        std::cout << "Votre argent restant: " << joueur.getBillets() << "€" << std::endl;
 }
- 
+    else if (c.type == "depart") {
+        std::cout << "Vous êtes sur la case départ." << std::endl;
+    }
+}
