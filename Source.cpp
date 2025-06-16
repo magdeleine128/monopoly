@@ -7,7 +7,7 @@
 
 int main() {
     std::srand(static_cast<unsigned int>(std::time(nullptr))); // Initialisation du générateur aléatoire
-    std::cout << Colors::colorize("Bienvenue dans Monopoly Junior !", "jaune") << std::endl;
+    std::cout << Colors::colorize(u8"Bienvenue dans Monopoly Junior du u8 café? !", "jaune") << std::endl;
     std::cout << "Vous etes combien de joueurs? ";
     int n;
     std::cin >> n;
@@ -25,7 +25,7 @@ int main() {
     plateau.afficherPlateau();
     while (!partieTerminee) {
        // if (tour % n == 0) {
-            //plateau.afficherPlateau(); }
+            //plateau.afficherPlateau(); } // on l ajoute si on veut afficher  a chaque tour le mise a jour de la crte
         Joueur& joueurActuel = plateau.getJoueur(tour % n);
         std::string couleurJoueur = joueurActuel.getCouleur();
 
