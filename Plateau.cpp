@@ -251,3 +251,4 @@ void Plateau::actionCase(int index, Joueur& joueur, Carte& cartesChance)
 
 
 }
+ 
