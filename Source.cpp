@@ -7,7 +7,7 @@
 
 int main() {
     std::srand(static_cast<unsigned int>(std::time(nullptr))); // Initialisation du générateur aléatoire
-    std::cout << Colors::colorize(u8"Bienvenue dans Monopoly Junior du u8 café? !", "jaune") << std::endl;
+    std::cout << Colors::colorize("Bienvenue dans Monopoly Junior du u8 café? !", "jaune") << std::endl;
     std::cout << "Vous etes combien de joueurs? ";
     int n;
     std::cin >> n;
